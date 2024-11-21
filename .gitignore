@@ -1,0 +1,54 @@
+# Thư mục Library và Temp (chứa tệp tạm, tự động sinh bởi Unity)
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+
+# Tệp cục bộ của người dùng
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.swp
+*.ide
+*.iml
+
+# Metadata không cần thiết
+*.pidb.meta
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Tệp Unity tự động sinh
+*.unitypackage
+
+# Thư mục cache của IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Tệp hệ điều hành
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Tệp tạm từ các công cụ build
+*.apk
+*.aab
+*.ipa
+*.unitypackage
+*.log
+
+# Tệp ánh xạ tạm từ source control
+.globl
+
