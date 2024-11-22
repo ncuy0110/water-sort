@@ -148,5 +148,5 @@ public partial class ResourceManager
 
 public enum GameMode
 {
-    Easy,Normal
+    Easy,Normal,Hard
 }
