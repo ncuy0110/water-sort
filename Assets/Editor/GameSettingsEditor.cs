@@ -8,11 +8,7 @@ using UnityEngine;
 public class GameSettingsEditor : Editor
 {
     private SerializedProperty _iosAppId;
-    //    private SerializedProperty _iosLeadersboardSetting;
-    //    private SerializedProperty _androidLeadersboardSetting;
     private SerializedProperty _inAppSetting;
-    //    private SerializedProperty _notificationSetting;
-//    private SerializedProperty _dailyRewardSetting;
 
 
     private SerializedProperty _adsSettings;
@@ -20,12 +16,8 @@ public class GameSettingsEditor : Editor
 
     private void OnEnable()
     {
-        //        _iosLeadersboardSetting = serializedObject.FindProperty(GameSettings.IOS_LEADERSBOARD_SETTINGS);
-        //        _androidLeadersboardSetting = serializedObject.FindProperty(GameSettings.ANDROID_LEADERSBOARD_SETTINGS);
         _iosAppId = serializedObject.FindProperty(GameSettings.IOS_APP_ID);
         _inAppSetting = serializedObject.FindProperty(GameSettings.IN_APP_SETTING);
-        //        _notificationSetting = serializedObject.FindProperty(GameSettings.NOTIFICATION_SETTING);
-//        _dailyRewardSetting = serializedObject.FindProperty(GameSettings.DAILY_REWARD_SETTING);
         _privatePolicySetting = serializedObject.FindProperty(GameSettings.PRIVATE_POLICY_SETTING);
         _adsSettings = serializedObject.FindProperty(GameSettings.ADS_SETTINGS);
     }
@@ -38,17 +30,9 @@ public class GameSettingsEditor : Editor
         DrawAdsSettings();
         EditorGUILayout.Space();
         EditorGUILayout.Space();
-        //        DrawLeadersBoard();
-        //        EditorGUILayout.Space();
-        //        EditorGUILayout.Space();
         DrawInApp();
         EditorGUILayout.Space();
         EditorGUILayout.Space();
-        //        DrawNotificationSetting();
-        //        EditorGUILayout.Space();
-        //        EditorGUILayout.Space();
-//        DrawDailyReward();
-//        EditorGUILayout.Space();
 
         DrawPrivatePolicy();
         EditorGUILayout.Space();
@@ -81,27 +65,9 @@ public class GameSettingsEditor : Editor
         HandleScriptingSymbol(BuildTargetGroup.Android, adsSettings.androidAdmobSetting.enable, "ADMOB");
 
 
-
-        //        var androidLeadersboardSetting = _androidLeadersboardSetting.ToObjectValue<LeadersboardSetting>();
-        //        HandleScriptingSymbol(BuildTargetGroup.Android, androidLeadersboardSetting.enable, "GAME_SERVICE");
-        //
-        //
-        //        var iosLeadersboardSetting = _iosLeadersboardSetting.ToObjectValue<LeadersboardSetting>();
-        //        HandleScriptingSymbol(BuildTargetGroup.iOS, iosLeadersboardSetting.enable, "GAME_SERVICE");
-
-        //        var notificationSetting = _notificationSetting.ToObjectValue<NotificationSetting>();
-
-        //        HandleScriptingSymbol(BuildTargetGroup.iOS, notificationSetting.enable, "NOTIFICATION");
-        //        HandleScriptingSymbol(BuildTargetGroup.Android, notificationSetting.enable, "NOTIFICATION");
-
         var inAppSetting = _inAppSetting.ToObjectValue<InAppSetting>();
         HandleScriptingSymbol(BuildTargetGroup.iOS, inAppSetting.enable, "IN_APP");
         HandleScriptingSymbol(BuildTargetGroup.Android, inAppSetting.enable, "IN_APP");
-
-
-//        var dailyRewardSetting = _dailyRewardSetting.ToObjectValue<DailyRewardSetting>();
-//        HandleScriptingSymbol(BuildTargetGroup.iOS, dailyRewardSetting.enable, "DAILY_REWARD");
-//        HandleScriptingSymbol(BuildTargetGroup.Android, dailyRewardSetting.enable, "DAILY_REWARD");
     }
 
     private bool MissingSymbols()
@@ -116,40 +82,10 @@ public class GameSettingsEditor : Editor
         {
             return true;
         }
-
-        //        if (adsSettings.iosAdColonySettings.enable && !HaveBuildSymbol(BuildTargetGroup.iOS, "ADMOB"))
-        //        {
-        //            return true;
-        //        }
-
-
-        //        var notificationSetting = _notificationSetting.ToObjectValue<NotificationSetting>();
-
-        //        if (notificationSetting.enable && (!HaveBuildSymbol(BuildTargetGroup.Android, "NOTIFICATION") ||
-        //                                           !HaveBuildSymbol(BuildTargetGroup.iOS, "NOTIFICATION")))
-        //        {
-        //            return true;
-        //        }
-
-        //        var androidLeadersboardSetting = _androidLeadersboardSetting.ToObjectValue<LeadersboardSetting>();
-        //        if (androidLeadersboardSetting.enable && !HaveBuildSymbol(BuildTargetGroup.Android, "GAME_SERVICE"))
-        //            return true;
-        //
-        //        var iosLeadersboardSetting = _iosLeadersboardSetting.ToObjectValue<LeadersboardSetting>();
-        //        if (iosLeadersboardSetting.enable && !HaveBuildSymbol(BuildTargetGroup.iOS, "GAME_SERVICE"))
-        //            return true;
-
         var inAppSetting = _inAppSetting.ToObjectValue<InAppSetting>();
         if (inAppSetting.enable && (!HaveBuildSymbol(BuildTargetGroup.Android, "IN_APP") ||
                                     !HaveBuildSymbol(BuildTargetGroup.iOS, "IN_APP")))
             return true;
-
-//        var dailyRewardSetting = _dailyRewardSetting.ToObjectValue<DailyRewardSetting>();
-//        if (dailyRewardSetting.enable && (!HaveBuildSymbol(BuildTargetGroup.Android, "DAILY_REWARD") ||
-//                                          !HaveBuildSymbol(BuildTargetGroup.iOS, "DAILY_REWARD")))
-//        {
-//            return true;
-//        }
 
         return false;
     }
@@ -165,95 +101,20 @@ public class GameSettingsEditor : Editor
         {
             EditorGUI.indentLevel++;
 
-            //            EditorGUILayout.BeginVertical(GUI.skin.box);
-            //            EditorGUILayout.LabelField("Other Settings", EditorStyles.boldLabel);
             _adsSettings.DrawChildrenDefault(nameof(AdsSettings.iosAdmobSetting)
                 , nameof(AdsSettings.androidAdmobSetting)
-                //                , nameof(AdsSettings.iosAdColonySettings)
-                //                , nameof(AdsSettings.androidAdColonySettings)
                 );
-            //            EditorGUILayout.EndVertical();
 
           
 
             DrawAdmobSetting(_adsSettings.FindPropertyRelative(nameof(AdsSettings.iosAdmobSetting)),
                 _adsSettings.FindPropertyRelative(nameof(AdsSettings.androidAdmobSetting)));
-            //            DrawAdColonySetting(_adsSettings.FindPropertyRelative(nameof(AdsSettings.iosAdColonySettings)),
-            //                _adsSettings.FindPropertyRelative(nameof(AdsSettings.androidAdColonySettings)));
 
             EditorGUI.indentLevel--;
         }
 
         EditorGUILayout.EndVertical();
     }
-
-    //    private void DrawNotificationSetting()
-    //    {
-    ////        var enableProperty = _notificationSetting.FindPropertyRelative(nameof(NotificationSetting.enable));
-    //
-    //        EditorGUILayout.BeginVertical(GUI.skin.box);
-    //        EditorGUILayout.BeginHorizontal();
-    //        EditorGUILayout.LabelField("Notification Setting", EditorStyles.boldLabel);
-    //        var enable = EditorGUILayout.ToggleLeft("", enableProperty.boolValue);
-    //        EditorGUILayout.EndHorizontal();
-    //        EditorGUI.indentLevel++;
-    //
-    //        if (enable != enableProperty.boolValue)
-    //        {
-    //            enableProperty.boolValue = enable;
-    //            if (enableProperty.boolValue)
-    //            {
-    //                AddBuildSymbol(BuildTargetGroup.iOS, "NOTIFICATION");
-    //                AddBuildSymbol(BuildTargetGroup.Android, "NOTIFICATION");
-    //            }
-    //            else
-    //            {
-    //                RemoveBuildSymbol(BuildTargetGroup.iOS, "NOTIFICATION");
-    //                RemoveBuildSymbol(BuildTargetGroup.Android, "NOTIFICATION");
-    //            }
-    //        }
-    //
-    //        if (enableProperty.boolValue)
-    //        {
-    //            _notificationSetting.DrawChildrenDefault(nameof(NotificationSetting.enable));
-    //        }
-    //
-    //        EditorGUI.indentLevel--;
-    //        EditorGUILayout.EndVertical();
-    //    }
-
-//    private void DrawDailyReward()
-//    {
-//        EditorGUILayout.BeginVertical(GUI.skin.box);
-//        var enableProperty = _dailyRewardSetting.FindPropertyRelative(nameof(DailyRewardSetting.enable));
-//        EditorGUILayout.BeginHorizontal();
-//        EditorGUILayout.LabelField("Daily Reward Setting", EditorStyles.boldLabel);
-//        var enable = EditorGUILayout.ToggleLeft("", enableProperty.boolValue);
-//        EditorGUILayout.EndHorizontal();
-//        EditorGUI.indentLevel++;
-//        if (enable != enableProperty.boolValue)
-//        {
-//            enableProperty.boolValue = enable;
-//            if (enableProperty.boolValue)
-//            {
-//                AddBuildSymbol(BuildTargetGroup.iOS, "DAILY_REWARD");
-//                AddBuildSymbol(BuildTargetGroup.Android, "DAILY_REWARD");
-//            }
-//            else
-//            {
-//                RemoveBuildSymbol(BuildTargetGroup.iOS, "DAILY_REWARD");
-//                RemoveBuildSymbol(BuildTargetGroup.Android, "DAILY_REWARD");
-//            }
-//        }
-//
-//        if (enableProperty.boolValue)
-//        {
-//            _dailyRewardSetting.DrawChildrenDefault(nameof(DailyRewardSetting.enable));
-//        }
-//
-//        EditorGUI.indentLevel--;
-//        EditorGUILayout.EndVertical();
-//    }
 
     private void DrawPrivatePolicy()
     {
@@ -312,89 +173,6 @@ public class GameSettingsEditor : Editor
         EditorGUI.indentLevel--;
         EditorGUILayout.EndVertical();
     }
-
-    //    private void DrawLeadersBoard()
-    //    {
-    //        var iosEnableProperty = _iosLeadersboardSetting.FindPropertyRelative(nameof(LeadersboardSetting.enable));
-    //        var androidEnableProperty =
-    //            _androidLeadersboardSetting.FindPropertyRelative(nameof(LeadersboardSetting.enable));
-    //
-    //        EditorGUILayout.BeginVertical(GUI.skin.box);
-    //        EditorGUILayout.BeginHorizontal();
-    //        EditorGUILayout.LabelField("Leadersboard Setting", EditorStyles.boldLabel);
-    //        var toggleValue =
-    //            EditorGUILayout.ToggleLeft("", iosEnableProperty.boolValue || androidEnableProperty.boolValue);
-    //
-    //        if (toggleValue != (androidEnableProperty.boolValue || iosEnableProperty.boolValue))
-    //        {
-    //            androidEnableProperty.boolValue = toggleValue;
-    //            iosEnableProperty.boolValue = toggleValue;
-    //        }
-    //
-    //        EditorGUILayout.EndHorizontal();
-    //        if (toggleValue)
-    //        {
-    //            EditorGUILayout.Space();
-    //
-    //            EditorGUILayout.BeginVertical(GUI.skin.box);
-    //            EditorGUI.indentLevel++;
-    //            var iosEnable = EditorGUILayout.Toggle("Ios", iosEnableProperty.boolValue);
-    //
-    //            if (iosEnable != iosEnableProperty.boolValue)
-    //            {
-    //                iosEnableProperty.boolValue = iosEnable;
-    //
-    //                if (iosEnable)
-    //                    AddBuildSymbol(BuildTargetGroup.iOS, "GAME_SERVICE");
-    //                else
-    //                {
-    //                    RemoveBuildSymbol(BuildTargetGroup.iOS, "GAME_SERVICE");
-    //                }
-    //
-    //                //            HandleScriptingSymbol(BuildTargetGroup.iOS, iosEnable);
-    //            }
-    //
-    //            if (iosEnableProperty.boolValue)
-    //            {
-    //                EditorGUI.indentLevel++;
-    //                _iosLeadersboardSetting.DrawChildrenDefault(nameof(LeadersboardSetting.enable));
-    //                EditorGUI.indentLevel--;
-    //            }
-    //
-    //            EditorGUI.indentLevel--;
-    //            EditorGUILayout.EndVertical();
-    //            EditorGUILayout.BeginVertical(GUI.skin.box);
-    //            EditorGUI.indentLevel++;
-    //
-    //            var androidEnable = EditorGUILayout.Toggle("Android", androidEnableProperty.boolValue);
-    //
-    //            if (androidEnable != androidEnableProperty.boolValue)
-    //            {
-    //                androidEnableProperty.boolValue = androidEnable;
-    //
-    //                if (androidEnable)
-    //                    AddBuildSymbol(BuildTargetGroup.Android, "GAME_SERVICE");
-    //                else
-    //                {
-    //                    RemoveBuildSymbol(BuildTargetGroup.Android, "GAME_SERVICE");
-    //                }
-    //
-    //                //            HandleScriptingSymbol(BuildTargetGroup.iOS, iosEnable);
-    //            }
-    //
-    //            if (androidEnableProperty.boolValue)
-    //            {
-    //                EditorGUI.indentLevel++;
-    //                _androidLeadersboardSetting.DrawChildrenDefault(nameof(LeadersboardSetting.enable));
-    //                EditorGUI.indentLevel--;
-    //            }
-    //
-    //            EditorGUI.indentLevel--;
-    //            EditorGUILayout.EndVertical();
-    //        }
-    //
-    //        EditorGUILayout.EndVertical();
-    //    }
 
     private void DrawAdmobSetting(SerializedProperty iosAdmobSetting, SerializedProperty androidAdmobSetting)
     {
@@ -474,64 +252,6 @@ public class GameSettingsEditor : Editor
 
         EditorGUILayout.EndVertical();
     }
-
-    //    private void DrawAdColonySetting(SerializedProperty iosAdColonySetting, SerializedProperty androidAdColonySetting)
-    //    {
-    //        EditorGUILayout.BeginVertical(GUI.skin.box);
-    //        iosAdColonySetting.isExpanded = EditorGUILayout.Foldout(iosAdColonySetting.isExpanded, "AdColony Setting");
-    //        if (iosAdColonySetting.isExpanded)
-    //        {
-    //            EditorGUILayout.Space();
-    //
-    //            EditorGUILayout.BeginVertical(GUI.skin.box);
-    //            EditorGUI.indentLevel++;
-    //            var iosEnableProperty = iosAdColonySetting.FindPropertyRelative(nameof(AdColonySettings.enable));
-    //
-    //            var iosEnable = EditorGUILayout.Toggle("Ios", iosEnableProperty.boolValue);
-    ////
-    //            if (iosEnable != iosEnableProperty.boolValue)
-    //            {
-    //                iosEnableProperty.boolValue = iosEnable;
-    //                HandleScriptingSymbol(BuildTargetGroup.iOS, iosEnable, "ADCLONY");
-    //            }
-    //
-    ////
-    //            if (iosEnableProperty.boolValue)
-    //            {
-    //                EditorGUI.indentLevel++;
-    //                iosAdColonySetting.DrawChildrenDefault(nameof(AdColonySettings.enable));
-    //
-    ////            _iosAdColonySetting.NextVisible(false);
-    //                EditorGUI.indentLevel--;
-    //            }
-    //
-    //            EditorGUI.indentLevel--;
-    //            EditorGUILayout.EndVertical();
-    //            EditorGUILayout.BeginVertical(GUI.skin.box);
-    //            EditorGUI.indentLevel++;
-    //            var androidEnableProperty = androidAdColonySetting.FindPropertyRelative(nameof(AdColonySettings.enable));
-    //            var androidEnable = EditorGUILayout.Toggle("Android", androidEnableProperty.boolValue);
-    //
-    //            if (androidEnable != androidEnableProperty.boolValue)
-    //            {
-    //                androidEnableProperty.boolValue = androidEnable;
-    //                HandleScriptingSymbol(BuildTargetGroup.Android, androidEnable, "ADCLONY");
-    //            }
-    //
-    //            if (androidEnableProperty.boolValue)
-    //            {
-    //                EditorGUI.indentLevel++;
-    //                androidAdColonySetting.DrawChildrenDefault(nameof(AdColonySettings.enable));
-    //                EditorGUI.indentLevel--;
-    //            }
-    //
-    //            EditorGUI.indentLevel--;
-    //            EditorGUILayout.EndVertical();
-    //        }
-    //
-    //        EditorGUILayout.EndVertical();
-    //    }
-
 
     private void DrawAppId()
     {

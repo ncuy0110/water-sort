@@ -45,11 +45,7 @@ public class LevelGeneratorEditor : Editor
                 var targetGroup = Mathf.RoundToInt(Mathf.Clamp(Random.Range(expectGroup - 1, expectGroup + 1),
                     targetGroupRange.x,
                     targetGroupRange.y));
-                var targetHolder
-                    = //i < lvlCount / 4f ? Mathf.Lerp(targetHolderRange.x,targetHolderRange.Lerb(0.25f),(float)i/lvlCount) : 
-                    targetGroup + extraHolderRange.RandomWithIn();
-//                   Mathf.RoundToInt(extraHolderRange.Lerb(1-Mathf.Clamp01(Random.Range((float) i / lvlCount - 0.7f,
-//                        (float) i / lvlCount + 0.7f))));
+                var targetHolder = targetGroup + extraHolderRange.RandomWithIn();
 
                 var generateLevel = GenerateLevel(targetHolder,targetGroup,targetSwap);
                 levels.Add(new Level
@@ -83,7 +79,6 @@ public class LevelGeneratorEditor : Editor
         {
             list[i].AddRange(Enumerable.Repeat(i, 4));
         }
-//        Debug.Log($"Holder Count-{holderCount} Group Count-{groupCount} Swap Count-{swapCount}");
         for (var i = 0; i < swapCount; i++)
         {
             var fromLists = holders.Where(l => l.Count > 0 &&(l.Count==1 || l.Last() == l[l.Count-2])).OrderByDescending(l =>l.Count(j => j == l.Last())).ToList();
