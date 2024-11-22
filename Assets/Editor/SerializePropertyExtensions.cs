@@ -28,7 +28,6 @@ public static class SerializePropertyExtensions
             yield break;
         }
 
-//        Debug.Log(nameof(ToValueEnumerable) + type.Name +" "+property.arraySize);
         for (var i = 0; i < property.arraySize; i++)
         {
             var elementAtIndex = property.GetArrayElementAtIndex(i);
@@ -114,13 +113,11 @@ public static class SerializePropertyExtensions
 
     public static void SetObjectValue(this SerializedProperty property, object value,Type type)
     {
-//        Debug.Log(type.Name);
         if (property.type.ToLower() != type.Name.ToLower())
             throw new ArgumentException($"Type Mismatched Property Type:{property.type} Value Type:{type.Name}");
 
         if (property.isArray && property.propertyType != SerializedPropertyType.String)
         {
-//            property.SetObjectValueEnumerable(value as IEnumerable,type);
             return;
         }
 
@@ -175,11 +172,6 @@ public static class SerializePropertyExtensions
         }
     }
 
-    //    public static object ConvertToTypeList(this IEnumerable<object> list, Type type)
-    //    {
-    //        return list.Select(item => Convert.ChangeType(item, type)).ToList();
-    //    }
-
     public static object ConvertToTypeEnumerable(this IEnumerable value, Type type)
     {
         var list = (IList) Activator.CreateInstance(type);
@@ -233,8 +225,6 @@ public static class SerializePropertyExtensions
                 return property.animationCurveValue;
             case SerializedPropertyType.Bounds:
                 return property.boundsValue;
-//            case SerializedPropertyType.Gradient:
-//                return property.;
             case SerializedPropertyType.Quaternion:
                 return property.quaternionValue;
             case SerializedPropertyType.ExposedReference:
@@ -321,8 +311,6 @@ public static class SerializePropertyExtensions
             case SerializedPropertyType.ExposedReference:
                 property.exposedReferenceValue = value as UnityEngine.Object;
                 break;
-//            case SerializedPropertyType.FixedBufferSize:
-//                property.fixedBufferSize = value;
             case SerializedPropertyType.Vector2Int:
                 property.vector2IntValue = (Vector2Int) value;
                 break;
